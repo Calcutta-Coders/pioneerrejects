@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slideshow and Redirect</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            object-fit: cover;
+            margin: 0;
+            font: serif;
+            background-color: #f0f0f0;
+        }
+
+        #slideshow {
+            position: relative;
+            max-width: 600px;
+            max-height: 400px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        img {
+            width: auto;
+            height: 100px;
+            display: none;
+        }
+
+        .overlay-text {
+            margin-bottom: 10px;
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="slideshow">
+        <div class="overlay-text" id="overlay-text" style="font-family: sans-serif;font-size: 2rem;">PLACEHOLDER
+        </div>
+        <img id="slide-image" src="" alt="Slideshow Image">
+    </div>
+
+    <script>
+        const images = [
+            { src: 'image1.png', text: 'AAKAD', color: 'black' },
+            { src: 'image2.png', text: 'BAKKAD', color: 'blue' },
+            { src: 'image3.png', text: 'BAMBE', color: 'red' },
+            { src: 'image4.png', text: 'BO', color: 'black' }
+        ];
+        const links = [
+            'https://www.ntu.edu.sg/',
+            'https://www.smu.edu.sg/',
+            'https://www.essec.edu/en/',
+            'https://www.sutd.edu.sg/'
+        ];
+        let currentIndex = 0;
+
+        function showNextImage() {
+            const slideImage = document.getElementById('slide-image');
+            const overlayText = document.getElementById('overlay-text');
+
+            if (currentIndex < images.length) {
+                slideImage.src = images[currentIndex].src;
+                overlayText.textContent = images[currentIndex].text;
+                overlayText.style.color = images[currentIndex].color;
+                slideImage.style.display = 'block';
+                currentIndex++;
+                setTimeout(showNextImage, 1000); // Change image every 1 second
+            } else {
+                const randomLink = links[Math.floor(Math.random() * links.length)];
+                window.location.href = randomLink;
+            }
+        }
+
+        window.onload = showNextImage;
+    </script>
+
+</body>
+
+</html>
