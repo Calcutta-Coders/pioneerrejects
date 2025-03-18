@@ -1,103 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>L</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            object-fit: cover;
-            margin: 0;
-            font: serif;
-            background-color: #f0f0f0;
-        }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        object-fit: cover;
+        margin: 0;
+        font: serif;
+        background-color: #f0f0f0;
+      }
 
-        #slideshow {
-            position: relative;
-            max-width: 600px;
-            max-height: 400px;
-            overflow: hidden;
-            text-align: center;
-        }
+      #slideshow {
+        position: relative;
+        max-width: 600px;
+        max-height: 400px;
+        overflow: hidden;
+        text-align: center;
+      }
 
-        img {
-            width: auto;
-            height: 100px;
-            display: none;
-        }
+      img {
+        width: auto;
+        height: 100px;
+        display: none;
+      }
 
-        .overlay-text {
-            margin-bottom: 10px;
-            color: black;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-        }
+      .overlay-text {
+        margin-bottom: 10px;
+        color: black;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div id="slideshow">
-        <div class="overlay-text" id="overlay-text" style="font-family: sans-serif;font-size: 2rem;">PLACEHOLDER
-        </div>
-        <img id="slide-image" src="" alt="Slideshow Image">
+      <div
+        class="overlay-text"
+        id="overlay-text"
+        style="font-family: sans-serif; font-size: 2rem"
+      >
+        PLACEHOLDER
+      </div>
+      <img id="slide-image" src="" alt="Slideshow Image" />
     </div>
 
     <script>
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1)); // Random index from 0 to i
-                [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-            }
-            return array;
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1)); // Random index from 0 to i
+          [array[i], array[j]] = [array[j], array[i]]; // Swap elements
         }
+        return array;
+      }
 
+      let images = [
+        {
+          src: "crest.png",
+          text: "EENY",
+          color: "blue",
+          link: "https://nus.edu.sg/osa/kentridgehall/",
+        },
+        {
+          src: "sh-logo.png",
+          text: "MEENY",
+          color: "red",
+          link: "https://nus.edu.sg/osa/sheareshall/",
+        },
+        {
+          src: "lh-logo.png",
+          text: "MINY",
+          color: "yellow",
+          link: "https://nus.edu.sg/osa/lighthouse/",
+        },
+        {
+          src: "helixhouse_tn.png",
+          text: "MOE",
+          color: "red",
+          link: "https://www.nus.edu.sg/osa/helixhouse/",
+        },
+      ];
 
+      let texts = ["EENY", "MEENY", "MINY", "MOE"];
 
-        let images = [
-            { src: 'image1.png', text: 'EENY', color: 'black', link: 'https://nus.edu.sg/osa/kentridgehall/' },
-            { src: 'image2.png', text: 'MEENY', color: 'blue', link: 'https://nus.edu.sg/osa/sheareshall/' },
-            { src: 'image3.png', text: 'MINY', color: 'red', link: 'https://nus.edu.sg/osa/lighthouse/' },
-            { src: 'image4.png', text: 'MOE', color: 'black', link: 'https://www.nus.edu.sg/osa/helixhouse/' }
-        ];
+      images = shuffleArray(images);
+      const links = [
+        "https://www.ntu.edu.sg/",
+        "https://www.smu.edu.sg/",
+        "https://www.essec.edu/en/",
+      ];
+      let currentIndex = 0;
 
-        let texts = ['EENY', 'MEENY', 'MINY', 'MOE']
+      function showNextImage() {
+        const slideImage = document.getElementById("slide-image");
+        const overlayText = document.getElementById("overlay-text");
 
-        images = shuffleArray(images);
-        const links = [
-            'https://www.ntu.edu.sg/',
-            'https://www.smu.edu.sg/',
-            'https://www.essec.edu/en/',
-
-        ];
-        let currentIndex = 0;
-
-        function showNextImage() {
-            const slideImage = document.getElementById('slide-image');
-            const overlayText = document.getElementById('overlay-text');
-
-            if (currentIndex < images.length) {
-                slideImage.src = images[currentIndex].src;
-                overlayText.textContent = texts[currentIndex];
-                overlayText.style.color = images[currentIndex].color;
-                slideImage.style.display = 'block';
-                currentIndex++;
-                setTimeout(showNextImage, 1000); // Change image every 1 second
-            } else {
-                const randomLink = images[3].link;
-                window.location.href = randomLink;
-            }
+        if (currentIndex < images.length) {
+          slideImage.src = images[currentIndex].src;
+          overlayText.textContent = texts[currentIndex];
+          overlayText.style.color = images[currentIndex].color;
+          slideImage.style.display = "block";
+          currentIndex++;
+          setTimeout(showNextImage, 1000); // Change image every 1 second
+        } else {
+          const randomLink = images[3].link;
+          window.location.href = randomLink;
         }
+      }
 
-        window.onload = showNextImage;
+      window.onload = showNextImage;
     </script>
-
-</body>
-
+  </body>
 </html>
